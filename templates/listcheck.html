@@ -1,0 +1,55 @@
+{{define "listcheck"}}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>listcheck</title>
+    </head>
+<body>
+    {{template "tabs"}}
+
+
+          
+
+    <div class="table-responsive">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Точка</th>
+                    <th scope="col">Карман</th>
+                    <th scope="col">Название системы</th>
+                    <th scope="col">Тема</th>
+                    <th scope="col">Создано</th>
+                    <th scope="col">Обновлено</th>
+                    <th scope="col">Проверено</th>
+                    <th scope="col">Путь</th>
+                    <th scope="col">Буфер</th>
+               </tr>
+            </thead>
+            {{range.Demos}}
+            <tbody>
+              <tr>
+                <th scope="row">{{.Id}}</th>
+                <td>{{.Places}}</td>
+                <th scope="row">{{.Numberpp}}</th>
+                <td> <a href="/sys/{{.Id}}">     {{.Namesys}}</a></td>
+                <td>{{.Nameprop}}</td>
+                <td>{{.Datecreate}}</td>
+                <td>{{.Dateupdate}}</td>
+                <td>{{.Datecheck}}</td>
+                <td>{{.Path}}</td>
+                <td>{{.Actual}}</td>
+              </tr>
+            </tbody>
+            {{end}} <br>
+          </table>
+        </table>
+     </div>
+     
+
+</body>
+</html>
+{{end}}

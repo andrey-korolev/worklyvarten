@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+<body>
+    {{template "tabs"}}
+
+
+            <!--кнопка, которая разворачивается вниз НАЧАЛО-->
+
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Добавить
+              </button>
+          
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <form action="/createAction" method="post">
+                   
+                  <select class="form-select form-select-lg mb-3" name="namesys">
+                        {{range.Namesyses}}
+                        <option value="{{.Namesys}}">{{.Namesys}}</option>
+                        {{end}}
+                    </select>
+                    <select class="form-select form-select-sm" class="form-select" name="count">
+                        <option value="1">1 карман</option>
+                        <option value="5">5 карманов</option>
+                        <option value="10">10 карманов</option>
+                        <option value="20">20 карманов</option>
+                        <option value="30">30 карманов</option>
+                    </select>
+                    <input hidden type="text" name="nameprop" placeholder="nameprop">
+                    <input hidden type="number" value="0" name="actual1">
+                    <br>  
+                    <select class="form-select form-select-sm" name="places">
+                      <option value="МФЦ Поназырево">МФЦ Поназырево</option>
+                      <option value="КС Антропово">КС Антропово</option>
+                      <option value="Администрация Кострома">Администрация Кострома</option>
+                    </select>
+                                      
+                    <input hidden type="number" value="0" name="numberpp">
+                      <br>
+                    <input class="btn btn-primary" type="submit" value="Создать">
+                </form>
+              </div>
+            </div>
+        <!--кнопка, которая разворачивается вниз ОКОНЧАНИЕ-->
+
+
+
+
+
+    <div class="table-responsive">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Точка</th>
+                    <th scope="col">Карман</th>
+                    <th scope="col">Название системы</th>
+                    <th scope="col">Тема</th>
+                    <th scope="col">Создано</th>
+                    <th scope="col">Обновлено</th>
+                    <th scope="col">Проверено</th>
+                    <th scope="col">Путь</th>
+                    <th scope="col">Буфер</th>
+               </tr>
+            </thead>
+            {{range.Demos}}
+            <tbody>
+              <tr>
+                <th scope="row">{{.Id}}</th>
+                <td>{{.Places}}</td>
+                <th scope="row">{{.Numberpp}}</th>
+                <td> <a href="/sys/{{.Id}}">     {{.Namesys}}</a></td>
+                <td>{{.Nameprop}}</td>
+                <td>{{.Datecreate}}</td>
+                <td>{{.Dateupdate}}</td>
+                <td>{{.Datecheck}}</td>
+                <td>{{.Path}}</td>
+                <td>{{.Actual}}</td>
+              </tr>
+            </tbody>
+            {{end}} <br>
+          </table>
+        </table>
+     </div>
+    
+</body>
+</html>

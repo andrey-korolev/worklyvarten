@@ -1,0 +1,8 @@
+MariaDB [stands4]> show columns from themes; 
++-------+--------------+------+-----+---------+----------------+ 
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(255)     | NO   | PRI | NULL    | auto_increment | 
+| theme | varchar(255) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.007 sec)2

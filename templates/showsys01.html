@@ -1,0 +1,147 @@
+{{define "showsys01"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>showsys</title>
+</head>
+<body>
+  {{template "tabs"}}
+  <div class=" container main">
+    
+    <td>
+      <a class="btn btn-outline-success" href="/district01">Назад</a>
+                <div class="alert alert-secondary" role="alert">
+                   <h5><strong>{{.ShowSys.Namesys}}, <br> Карман №{{.ShowSys.Numberpp}}, <br> ({{.ShowSys.Places}})</strong> </h5>  
+                     
+        
+     Листовка: 
+     <a href="/pdf/{{.ShowSys.Id}}"><h3><strong>{{.ShowSys.Nameprop}}</strong></h3></a>
+    </div>    
+    {{if .ShowSys.Nameprop}}  
+                  <div class="alert alert-dark" role="alert">
+                    <div class="row g-3">
+                        <div class="col-sm-5">
+                          
+                          <div class="col-sm">
+                            <label>Создано</label>
+                            <input readonly disabled name="datecreate" value="{{.ShowSys.Datecreate}}" type="date" class="form-control" placeholder="Создано" aria-label="Создано">
+                          </div>
+                          <div class="col-sm">
+                            <label>Обновлено</label>
+                           
+                              <input hidden type="text" name="id" value="{{.ShowSys.Id}}">
+                              <input readonly disabled name="dateupdate" value="{{.ShowSys.Dateupdate}}" type="datetime-local" class="form-control" placeholder="Обновлено" aria-label="Обновлено">
+                            
+                         
+                          </div>
+                          
+                          <div class="col-sm">
+                            <hr>
+                            <label>Проверено</label>
+                            <form action="/changedatecheckAction01" method="post">
+                              <input hidden type="text" name="id" value="{{.ShowSys.Id}}">
+                              <input disabled name="datecheck" value="{{.ShowSys.Datecheck}}" type="datetime-local" class="form-control" placeholder="Проверено" aria-label="Проверено">
+                              <br>  
+                              <select required name="actual" class="form-select form-select-lg mb-3" aria-label=".form-select-lg пример">
+                                
+                                <option value="">-- Измените состояние-- </option>
+                                <option value="1">Полное соответствие</option>
+                                <option value="2">Черно-белый экземпляр</option>
+                                <option value="3">Карман пуст</option>
+                              </select>
+                              
+                              <input class="btn btn-danger" onclick="displayMessage()" type="submit" value="Записать">
+                              <hr>
+                            </form>
+                          </div>
+                          
+                          
+                          <div class="col-sm">
+                            <label>Состояние</label>
+                            <h2><p id="output"></p></h2>
+                            <!--Комментарий НАЧАЛО-->
+                            <div class="form-floating">
+                              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                              <label for="floatingTextarea">Комментарий</label>
+                            </div>
+                            <!--Комментарий ОКОНЧАНИЕ-->
+                            <br>
+                            <canvas id="pdf-canvas"></canvas>
+                            
+                            <input hidden type="text" name="id" value="{{.ShowSys.Id}}">
+                            <input hidden id="numberInput" value="{{.ShowSys.Actual}}" type="text" class="form-control" placeholder="Обновлено" aria-label="Обновлено">
+                            
+                            {{else}} <h6>--электронный образ листовки не прикреплен--</h6> {{end}}              
+                            
+                            <script>
+                              
+            var number = document.getElementById("numberInput").value;
+            if (number == 1) {
+              document.getElementById('output').innerText = "Полное соответствие";
+            } else if (number == 2) {
+              document.getElementById('output').innerText = "Черно-белый экземпляр";
+            } else if (number == 3) {
+              document.getElementById('output').innerText = "Карман пуст";
+            } else {
+              document.getElementById('output').innerText = "Требует проставления отметки";
+            }
+            </script>
+                     
+                     
+                     
+                     <!-- Добавьте элемент для вывода сообщения пользователю -->
+                     <div id="pdf-error-message" class="alert alert-danger" style="display: none;"></div>
+                     
+                     <script>
+    const url = '/pdf/{{.ShowSys.Id}}'; // Укажите путь к вашему PDF-файлу
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const context = pdfCanvas.getContext('2d');
+    const errorMessageDiv = document.getElementById('pdf-error-message');
+
+    // Загружаем PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        // Получаем первую страницу
+        pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 0.5 });
+            pdfCanvas.width = viewport.width;
+            pdfCanvas.height = viewport.height;
+
+            // Рисуем страницу на canvas
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    }).catch(error => {
+        // Если произошла ошибка при загрузке, показываем сообщение пользователю
+        console.error('Ошибка при загрузке PDF:', error);
+        errorMessageDiv.innerText = "Ошибка: файл PDF недоступен. Возможно файл еще не добавлен.";
+        errorMessageDiv.style.display = "block"; // Показываем сообщение
+    });
+</script>
+
+
+
+                            
+                         </div>
+                          
+                        </div>
+
+
+
+                  </div>    
+            </td>
+           
+            
+          </div>
+
+
+   
+
+    
+</body>
+</html>
+{{end}}

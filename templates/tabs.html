@@ -1,0 +1,59 @@
+    {{define "tabs"}}
+   
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/assets/css/style.css">
+
+            <link rel="icon" href="/assets/images/search.svg" type="image/x-icon">
+        </head>
+        <body>
+            <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+            <script src="/assets/js/jquery-3.7.1.js"></script>
+            
+            <script src="/assets/js/pdf/pdf.min.js"></script>
+
+            
+            <header class="main container">
+
+
+              <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Сервис "СТЕНДЫ"</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Переключатель навигации">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                      <li hidden class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Главная</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/create">Глобальный список (ООРКС)</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/listcheck">Требуется проверка</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/">Районы</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Настройки</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/createnamesyses">демонстрационных систем</a></li>
+                          <li><a class="dropdown-item" href="#">точек размещения</a></li>
+                          <li><a class="dropdown-item" href="/createthemes">листовок</a></li>
+                          <hr>
+                          <li><a class="dropdown-item" href="/logactionusers">История</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+      {{end}}

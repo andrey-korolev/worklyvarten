@@ -1,0 +1,179 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{template "tabs"}}
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <a href="/district01">Антроповский район</a><br>
+    <a href="">Буйский район</a>
+
+    <div>
+        Type a key:
+        </div>
+        <input id="key-input" type="text">
+        <div>
+        Here's the code of the key you pressed:
+        </div>
+        <div id="key-output">
+        </div>
+
+                        <script>
+                        const keyInput = document.
+                        getElementById('key-input');
+                        keyInput.addEventListener('keypress', function(e)
+                        {
+                        const keyOutput = document.
+                        getElementById('key-output');
+                        keyOutput.innerHTML = e.which;
+                     });
+                    </script>
+
+
+<form>
+    <fieldset>
+    <legend>
+    Settings
+    </legend>
+    <label for="background-color">Select a    background color</label>
+    <input id="background-color" type="color"    name="bg-color" value="#ffffff">
+    <label for="text-color">Select a text    color</label>
+    <input id="text-color" type="color"    name="text-color" value="#000000">
+    <label for="font-stack">Select a    typeface:</label>
+    <select id="font-stack" name="font-stack">
+    <option value="Georgia, 'Times New    Roman', serif" selected>Serif</option>
+    <option value="Verdana, Tahoma, sans-    serif">Sans-serif</option>
+    <option value="'Bradley Hand', Brush    Script MT, cursive">Cursive</option>
+    <option value="Luminari">Fantasy</option>
+    <option value="Monaco, Courier, monospace">Monospace</option>
+</select>
+<button>
+Save Your Settings
+</button>
+</fieldset>
+</form>
+
+<script>
+    // Listen for changes on the #background-color color picker
+document.querySelector('#background-color').addEventListener('change', function() {
+const backgroundColor = this.value;
+document.body.style.backgroundColor = backgroundColor;
+});
+// Listen for changes on the #text-color color picker
+document.querySelector('#text-color').addEventListener('change', function() {
+const textColor = this.value;
+document.body.style.color = textColor;
+});
+// Listen for changes on the #font-stack selection list
+document.querySelector('#font-stack').addEventListener('change', function() {
+const fontStack = this.selectedOptions[0].value;
+document.body.style.fontFamily = fontStack;
+});
+// Listen for the button being clicked
+document.querySelector('button').addEventListener('click', () => {
+// Store the form data in a JavaScript object
+const userSettings = {
+backgroundColor: document.querySelector('#background-color').value,textColor: document.querySelector('#text-color').value,
+fontStack: document.querySelector('#font-stack').selectedOptions[0].value
+}
+// Save the settings in local storage
+localStorage.setItem('user-settings', JSON.stringify(userSettings));
+});
+</script>
+
+<form>
+    <label for="user">Username:</label>
+    <input id="user" type="text" name="username">
+    <label for="pwd">Password:</label>
+    <input id="pwd" type="password"
+    name="password">
+    </form>
+
+    <script>
+        document.querySelector('form').
+addEventListener('click', () => {
+console.log('Thanks for clicking the form!');
+});
+    </script>
+
+<form>
+    <label for="user">Username:</label>
+    <input id="user" type="text" name="username">
+    <label for="pwd">Password:</label>
+    <input id="pwd" type="password"
+    name="password">
+    </form>
+
+    <script>
+  document.querySelector('#user').
+addEventListener('focus', () => {
+console.log('The username field has the focus!');
+});
+    </script>
+<label for="bgcolor">Select a background color</label>
+<input id="bgcolor" type="color" name="bg-color" value="#ffffff">
+
+<script>
+    document.querySelector('#bgcolor').
+addEventListener('change', (event) => {
+const backgroundColor = event.target.value;
+document.body.bgColor = backgroundColor;
+});
+</script>
+
+<script>
+    let firstName;
+firstName = prompt("Please tell me your first name:");
+document.write("Welcome to my website, " + firstName);
+
+</script>
+
+
+
+<button id="bgRed">
+    Make Background Red
+    </button>
+    <button id="bgWhite">
+    Make Background White
+    </button>
+    <script>
+    function makeBackgroundRed() {
+    document.body.style.backgroundColor=    'red';
+    }
+    function makeBackgroundWhite() {
+    document.body.style.backgroundColor=    'white';
+    }document.getElementById('bgRed').
+addEventListener('click', makeBackgroundRed);
+document.getElementById('bgWhite').addEventListener('click',makeBackgroundWhite);
+</script>
+</body>
+<script>
+
+</script>
+
+
+<script>
+    const newNav = document.createElement("nav");
+document.querySelector("main").prepend(newNav);
+newNav.innerHTML = "<h2>Navigation</h2>";
+</script>
+
+
+
+<div id="my-div"></div>
+<button id="my-button">Click to add some text, above</button>
+<script>
+    const myButton = document.getElementById('my-button');
+myButton.addEventListener('click', function() {
+const myDiv = document.getElementById('my-div');
+myDiv.innerHTML = '<h1>Hello Click World!</h1>';
+});
+</script>
+
+</body>
+</html>
+{{end}}

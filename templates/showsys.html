@@ -1,0 +1,142 @@
+{{define "showsys"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>showsys</title>
+</head>
+<body>
+    {{template "tabs"}}
+    <div class=" container main">
+        
+            <td>
+              <a class="btn btn-outline-success" href="/create">Назад</a>
+                <div class="alert alert-secondary" role="alert">
+                   <h5><strong>{{.ShowSys.Namesys}}, карман №{{.ShowSys.Numberpp}}, ({{.ShowSys.Places}})</strong> </h5>
+                   
+                               <!--кнопка, которая разворачивается вниз НАЧАЛО-->
+
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Заменить листовку
+            </button>
+        
+          <div class="collapse" id="collapseExample">
+            <div class="row card card-body">
+              <form action="/changethemeincardAction" method="post">
+                <input hidden type="text" name="id" value="{{.ShowSys.Id}}">  
+               
+                <select name="nameprop" class="form-select" size="12" aria-label="пример элемента выбора размером равному 3">
+                  
+                  {{range.Themes}}
+                  <option value="{{.Theme}}">{{.Theme}}</option>
+                  {{end}}
+                </select>             
+                <br>
+                  <input class="btn btn-danger" type="submit" value="Заменить">
+                  Если нет нужной темы, вы можете ее <a href="/createthemes">добавить.</a> 
+              </form>
+            </div>
+          </div>
+      <!--кнопка, которая разворачивается вниз ОКОНЧАНИЕ-->
+                   <br>
+                   
+                   Тема: 
+                   <div><h3><strong>{{.ShowSys.Nameprop}}</strong></h3>
+                     <a href="/pdf/{{.ShowSys.Id}}">Распечатать</a>
+
+                   </div>
+                </div>    
+                  <div class="alert alert-info" role="alert">
+                    <div class="row g-3">
+                        <div class="col-sm-5">
+                          <label>Точка размещения</label>
+                            <input readonly name="places" value="{{.ShowSys.Places}}" type="text" class="form-control" placeholder="Точка" aria-label="Точка">
+                          </div>
+                          <div class="col-sm">
+                            <label>Карман №</label>
+                            <form action="/changenumberpocketAction" method="post">
+                              <input hidden type="text" name="id" value="{{.ShowSys.Id}}">
+                              <input name="numberpp" value="{{.ShowSys.Numberpp}}" type="text" class="form-control" placeholder="Проверено" aria-label="Проверено">
+                              <input type="submit" value="Записать">
+                            </form>
+                          </div>
+                          <div class="col-sm">
+                            <label>Создано</label>
+                            <input disabled readonly name="datecreate" value="{{.ShowSys.Datecreate}}" type="date" class="form-control" placeholder="Создано" aria-label="Создано">
+                          </div>
+                          <div class="col-sm">
+                            <label>Обновлено</label>
+                            <form action="/changedateupdateAction" method="post">
+                              <input hidden type="text" name="id" value="{{.ShowSys.Id}}">
+                              <input name="dateupdate" value="{{.ShowSys.Dateupdate}}" type="datetime-local" class="form-control" placeholder="Обновлено" aria-label="Обновлено">
+                              <input type="submit" value="Записать">
+                            </form>
+                          </div>
+                          <div class="col-sm">
+                            <label>Проверено</label>
+ 
+                              <input hidden type="text" name="id" value="{{.ShowSys.Id}}">
+                              <input disabled readonly name="datecheck" value="{{.ShowSys.Datecheck}}" type="datetime-local" class="form-control" placeholder="Проверено" aria-label="Проверено">
+
+                          </div>
+<hr>
+                      </div>
+
+                      
+
+
+
+
+                      {{if .ShowSys.Nameprop}} 
+                      <canvas id="pdf-canvas"></canvas>
+                      {{else}}
+                      --Образ не прикреплен--
+                      {{end}}
+                     <!-- Добавьте элемент для вывода сообщения пользователю -->
+                     <div id="pdf-error-message" class="alert alert-danger" style="display: none;"></div>
+                     
+                     <script>
+    const url = '/pdf/{{.ShowSys.Id}}'; // Укажите путь к вашему PDF-файлу
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const context = pdfCanvas.getContext('2d');
+    const errorMessageDiv = document.getElementById('pdf-error-message');
+
+    // Загружаем PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        // Получаем первую страницу
+        pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 0.6 });
+            pdfCanvas.width = viewport.width;
+            pdfCanvas.height = viewport.height;
+
+            // Рисуем страницу на canvas
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    }).catch(error => {
+        // Если произошла ошибка при загрузке, показываем сообщение пользователю
+        console.error('Ошибка при загрузке PDF:', error);
+        errorMessageDiv.innerText = "Ошибка: файл PDF недоступен. Возможно файл еще не добавлен. Вы можете добавить файл PDF в настройках листовок.";
+        errorMessageDiv.style.display = "block"; // Показываем сообщение
+    });
+</script>
+
+                  </div>    
+            </td>
+           
+    
+    
+    </div>
+    
+ 
+
+
+
+    
+</body>
+</html>
+{{end}}

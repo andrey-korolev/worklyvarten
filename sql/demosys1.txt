@@ -1,0 +1,16 @@
+MariaDB [stands4]> show columns from demosys1; 
++------------+--------------+------+-----+---------+----------------+ 
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(255)     | NO   | PRI | NULL    | auto_increment | 
+| namesys    | varchar(255) | YES  |     | NULL    |                |
+| datecreate | date         | YES  |     | NULL    |                |
+| dateupdate | date         | YES  |     | NULL    |                | 
+| datecheck  | date         | YES  |     | NULL    |                |
+| path       | varchar(255) | YES  |     | NULL    |                |
+| nameprop   | varchar(255) | YES  |     | NULL    |                |
+| actual     | int(255)     | YES  |     | NULL    |                | 
+| places     | varchar(255) | YES  |     | NULL    |                |
+| numberpp   | int(255)     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+10 rows in set (0.008 sec)

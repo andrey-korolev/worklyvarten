@@ -1,0 +1,19 @@
+create table demosys1 (
+id int(255) auto_increment primary key,
+namesys varchar(255),
+datecreate date,
+dateupdate datetime,
+datecheck datetime,
+path varchar(255),
+nameprop varchar(255),
+actual int(255),
+places varchar(255),
+numberpp int(255));     
+
+create table namesyses(
+id int(255) auto_increment primary key,
+namesys varchar(255));
+
+create table themes(
+id int(255) auto_increment primary key,
+theme varchar(255));

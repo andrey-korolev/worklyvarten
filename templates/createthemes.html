@@ -1,0 +1,54 @@
+{{define "createthemes"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{template "tabs"}}
+   
+   
+
+    <div class="table-responsive">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название листовки</th>
+               </tr>
+            </thead>
+            {{range.Themes}}
+            <tbody>
+              <tr>
+                <th scope="row">{{.Id}}</th>
+                <td> <a href="/themes/{{.Id}}">     {{.Theme}}</a></td> 
+              </tr>
+            </tbody>
+            {{end}} <br>
+          </table>
+        </table>
+            <!--кнопка, которая разворачивается вниз НАЧАЛО-->
+
+       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Добавить
+      </button>
+  
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <form action="/createthemesAction" method="post">
+          <input type="text" name="themes" value="" placeholder="Название листовки">
+          <input type="submit" value="Создать">
+          </form>
+      </div>
+    </div>
+<!--кнопка, которая разворачивается вниз ОКОНЧАНИЕ-->
+     </div>
+   
+   
+   
+</body>
+</html>
+{{end}}

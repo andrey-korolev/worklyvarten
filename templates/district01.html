@@ -1,0 +1,41 @@
+{{define "district01"}}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>district01</title>
+    </head>
+<body>
+    {{template "tabs"}}
+   <div class="row table-responsive">
+           {{range.Demos}}
+    
+            <!-- Карточка Начало-->
+ <div class="card " style="width: 18rem;">
+   <div class="card-body ">
+   <p class="card-text col-auto"> <strong> {{.Namesys}} <br> ({{.Places}})</strong></p>
+   <p class="card-text col-auto">Карман №{{.Numberpp}}</p>
+    <h5 class="card-title col-auto  {{.Check_success}}">{{if .Nameprop}} <strong> {{.Nameprop}}</strong> {{else}} <h6>--в кармане пока пусто--</h6> {{end}}</h5>
+    <a href="/sys01/{{.Id}}" class="btn-primary stretched-link"></a>
+  </div>
+</div>
+<br>
+<!--Карточка Окончание-->
+
+{{end}} <br>
+</table>
+</table>
+</div>
+
+
+    
+</body>
+</html>
+{{end}}
+
+
+

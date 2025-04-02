@@ -1,0 +1,35 @@
+{{define "shownamesys"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shownamesys</title>
+</head>
+<body>
+    {{template "tabs"}}
+    <div class=" container main">
+<br>
+
+   
+
+ <form action="/editnamesysAction" method="post">
+          <div class="mb-3">
+          <input hidden class="form-control form-control-lg" name="id" value="{{.Id}}" type="text" placeholder="id" aria-label=".form-control-lg example">
+          <input class="form-control form-control-lg" name="namesys" value="{{.Namesys}}" type="text" placeholder="Наименование демонстрационной системы" aria-label=".form-control-lg example">
+          <br>
+
+          <input class="btn btn-success" type="submit" value="Сохранить">
+          </div>
+          </form> 
+
+    <form action="/deletenamesysAction" method="post">
+        <input hidden class="form-control form-control-lg" name="id" value="{{.Id}}" type="text" placeholder="id" aria-label=".form-control-lg example">
+        <input class="btn btn-danger" type="submit" value="Удалить">
+        </form>  
+
+
+
+</body>
+</html>
+{{end}}

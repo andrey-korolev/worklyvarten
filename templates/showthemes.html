@@ -1,0 +1,110 @@
+{{define "showthemes"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>showthemes</title>
+</head>
+<body>
+    
+    {{template "tabs"}}
+    <div class=" container main">
+      <a class="btn btn-outline-success" href="/createthemes">Назад</a>
+      <div class="modal-body text-end">
+      
+        <form action="/deletethemesAction" method="post">
+          <input hidden class="form-control form-control-lg" name="id" value="{{.Id}}" type="text" placeholder="id" aria-label=".form-control-lg example">
+          <input class="btn btn-danger" type="submit" value="Удалить">
+        </form>  
+      </div>
+    
+
+ <form action="/twoAction" method="post">
+          <div class="mb-3">
+          <input hidden class="form-control form-control-lg" name="id" value="{{.Id}}" type="text" placeholder="id" aria-label=".form-control-lg example">
+          <input hidden type="text" name="experim" value="{{.Id}}">
+          <input readonly class="form-control form-control-lg" name="themes" value="{{.Theme}}" type="text" placeholder="Наименование демонстрационной системы" aria-label=".form-control-lg example">
+          <br>
+
+          <input hidden class="btn btn-success" type="submit" value="Сохранить">
+          </div>
+    </form>
+          <!--Начало кнопки Добавить файлы-->
+                            
+<form class="main container" action="/addfiledownloadedAction/{{.Id}}" method="post" enctype="multipart/form-data">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1-regprocedure" data-bs-whatever="@mdo">Добавить вложение</button>
+          <!-- Full screen modal -->
+          <div class="modal fade" id="exampleModal1-regprocedure" tabindex="-1" aria-labelledby="exampleModalLabel1-regprocedure" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel1-regprocedure">Добавьте файл в формате pdf файл</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                  <div class="modal-body">
+                    <!--Начало загрузки файла-->
+                    
+                    <input type="hidden" name="theme" id="theme" value="{{.Theme}}">
+                    
+                    <input hidden onkeyup="this.value = this.value.replace(/[^\f А-Яа-яЁё№0-9.)(-]/g,'');" type="text" name="namef" id="namef" class="form-control" placeholder="Внесите название или оставьте поле пустым.  Знак / не допускается"><br>
+
+                    <input id="emptyUpload" pattern=".{1,}" required type="file" name="myFile"><br><br>
+                    
+                    <input class="btn btn-primary" type="submit" value="Сохранить">
+                  </div>
+                  </form>     
+
+
+                    <!--Окончание загрузки файла--> 
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+          <!--Окончание кнопки Добавить файлы-->
+          <br>
+          <!-- Добавьте элемент для вывода сообщения пользователю -->
+          <canvas id="pdf-canvas"></canvas>
+          <div id="pdf-error-message" class="alert alert-danger" style="display: none;"></div>
+          <br>
+<br>
+
+                     
+                     <script>
+    const url = '/pdf/{{.Id}}'; // Укажите путь к вашему PDF-файлу
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const context = pdfCanvas.getContext('2d');
+    const errorMessageDiv = document.getElementById('pdf-error-message');
+
+    // Загружаем PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        // Получаем первую страницу
+        pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 1  });
+            pdfCanvas.width = viewport.width;
+            pdfCanvas.height = viewport.height;
+
+            // Рисуем страницу на canvas
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    }).catch(error => {
+        // Если произошла ошибка при загрузке, показываем сообщение пользователю
+        console.error('Ошибка при загрузке PDF:', error);
+        errorMessageDiv.innerText = "Вложение не добавлено";
+        errorMessageDiv.style.display = "block"; // Показываем сообщение
+    });
+</script>
+
+
+
+
+</body>
+</html>
+{{end}}
